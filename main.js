@@ -25,7 +25,6 @@ const material = new THREE.MeshStandardMaterial();
 material.metalness = 0.7;
 material.roughness = 0.2;
 material.normalMap = normalTexture;
-
 material.color = new THREE.Color(0x292929);
 
 // Mesh
@@ -137,13 +136,43 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
  * Animate
  */
 
+document.addEventListener('mousemove', onDocumentMouseMove);
+
+let mouseX = 0;
+let mouseY = 0;
+
+let targetX = 0;
+let targetY = 0;
+
+const windowX = window.innerWidth / 2;
+const windowY = window.innerHeight / 2;
+
+function onDocumentMouseMove(event) {
+	mouseX = event.clientX - windowX;
+	mouseY = event.clientY - windowY;
+}
+
+// parallax effect
+const updateSphere = (e) => {
+	sphere.position.y = window.scrollY * 0.001;
+};
+
+window.addEventListener('scroll', updateSphere);
+
 const clock = new THREE.Clock();
 
 const tick = () => {
+	targetX = mouseX * 0.001;
+	targetY = mouseY * 0.001;
+
 	const elapsedTime = clock.getElapsedTime();
 
 	// Update objects
 	sphere.rotation.y = 0.5 * elapsedTime;
+
+	sphere.rotation.y += 0.5 * (targetX - sphere.rotation.y);
+	sphere.rotation.x += 0.05 * (targetY - sphere.rotation.x);
+	sphere.position.z += -0.05 * (targetY - sphere.rotation.x);
 
 	// Update Orbital Controls
 	// controls.update()
