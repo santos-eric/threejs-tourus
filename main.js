@@ -9,7 +9,7 @@ const textureLoader = new THREE.TextureLoader();
 const normalTexture = textureLoader.load('/static/textures/NormalMap.png');
 
 // Debug
-const gui = new dat.GUI();
+// const gui = new dat.GUI();
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl');
@@ -32,27 +32,55 @@ material.color = new THREE.Color(0x292929);
 const sphere = new THREE.Mesh(geometry, material);
 scene.add(sphere);
 
-// Lights
+// Light 1
 const pointLight = new THREE.PointLight(0xffffff, 0.1);
 pointLight.position.x = 2;
 pointLight.position.y = 3;
 pointLight.position.z = 4;
 scene.add(pointLight);
 
+// Light 2
 const pointLight2 = new THREE.PointLight(0xff0000, 2);
-// pointLight.position.x = 2;
-// pointLight.position.y = 3;
-// pointLight.position.z = 4;
-pointLight2.position.set(1, 1, 1);
-pointLight2.intensity = 1;
-
-// scene.add(pointLight);
+pointLight2.position.set(-1.86, 1, -1.65);
+pointLight2.intensity = 10;
 scene.add(pointLight2);
 
-gui.add(pointLight2.position, 'x').min(-3).max(3).step(0.01);
-gui.add(pointLight2.position, 'y').min(-6).max(6).step(0.01);
-gui.add(pointLight2.position, 'z').min(-3).max(3).step(0.01);
-gui.add(pointLight2, 'intensity').min(0).max(10).step(0.01);
+// const light1 = gui.addFolder('light 1');
+
+// light1.add(pointLight2.position, 'x').min(-3).max(3).step(0.01);
+// light1.add(pointLight2.position, 'y').min(-6).max(6).step(0.01);
+// light1.add(pointLight2.position, 'z').min(-3).max(3).step(0.01);
+// light1.add(pointLight2, 'intensity').min(0).max(10).step(0.01);
+
+// Light 3
+const pointLight3 = new THREE.PointLight(0x8cff, 2);
+pointLight3.position.set(1.33, -1.04, -0.98);
+pointLight3.intensity = 10;
+scene.add(pointLight3);
+
+// const light2 = gui.addFolder('light 2');
+
+// light2.add(pointLight3.position, 'x').min(-3).max(3).step(0.01);
+// light2.add(pointLight3.position, 'y').min(-6).max(6).step(0.01);
+// light2.add(pointLight3.position, 'z').min(-3).max(3).step(0.01);
+// light2.add(pointLight3, 'intensity').min(0).max(10).step(0.01);
+
+// // change color with debugger
+// const light2Color = {
+// 	color: 0xff0000,
+// };
+// light2.addColor(light2Color, 'color').onChange(() => {
+// 	pointLight3.color.set(light2Color.color);
+// });
+
+// helper1
+// const pointLightHelper = new THREE.PointLightHelper(pointLight2, 1);
+// scene.add(pointLightHelper);
+
+// // helper2
+// const pointLightHelper2 = new THREE.PointLightHelper(pointLight3, 1);
+
+// scene.add(pointLightHelper2);
 
 /**
  * Sizes
